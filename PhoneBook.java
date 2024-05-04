@@ -39,7 +39,31 @@ public class PhoneBook {
 
 	/* Метод отсортированного вывода контактов */
 	private static void displayContacts() {
-		
+		if (phoneBook.isEmpty()) {
+            System.out.println("Телефонная книга пуста.\n");
+            return;
+        }
+
+        // Создаем список записей для сортировки
+        List<Map.Entry<String, HashSet<String>>> sortedEntries = new ArrayList<>(phoneBook.entrySet());
+
+        // Сортируем записи по убыванию числа телефонов
+        sortedEntries.sort((entry1, entry2) -> Integer.compare(entry2.getValue().size(), entry1.getValue().size()));
+
+        // Вывод отсортированных записей
+        for (Map.Entry<String, HashSet<String>> entry : sortedEntries) {
+            String name = entry.getKey();
+            HashSet<String> phoneNumbers = entry.getValue();
+            StringBuilder formattedNumbers = new StringBuilder();
+            formattedNumbers.append("[");
+            for (String number : phoneNumbers) {
+                formattedNumbers.append(number).append(", ");
+            }
+            formattedNumbers.setLength(formattedNumbers.length() - 2); // Удаление последней запятой и пробела
+            formattedNumbers.append("]");
+            System.out.println(name + ": " + formattedNumbers);
+        }
+		System.out.println(); // Пустая строка для отделения нового меню от выведенного результата
 	}
 
 	/* Метод добавления контакта */
