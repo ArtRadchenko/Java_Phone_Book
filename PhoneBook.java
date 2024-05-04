@@ -58,11 +58,22 @@ public class PhoneBook {
             phoneNumbers.add(phoneNumber);
             phoneBook.put(name, phoneNumbers);
         }
-        System.out.println("Контакт успешно добавлен.");
+        System.out.println("Контакт успешно добавлен.\n");
     }
 
 	/* Метод удаления контакта */
 	private static void deleteContact(Scanner scanner) {
-        
+		System.out.print("Введите имя контакта для удаления: ");
+        String name = scanner.nextLine().trim();
+
+        // Проверяем наличие контакта в книге
+        if (!phoneBook.containsKey(name)) {
+            System.out.println("Контакт с таким именем не найден.\n");
+            return;
+        }
+
+        // Удаляем контакт
+        phoneBook.remove(name);
+        System.out.println("Контакт успешно удален.\n");        
     }
 }
